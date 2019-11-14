@@ -1,9 +1,5 @@
 // @TODO: YOUR CODE HERE!
 let chart = parseInt(d3.select(`#scatter`).style(".chart"));
-//let svgArea = d3.select('body').select('svg');
-//if (!svgArea.empty()) {
-//    svgArea.remove();
-//}
 
 let svgWidth = 960;
 let svgHeight = 500;
@@ -105,15 +101,8 @@ function updateToolTip(chosenXaxis, chosenYaxis, circlesGroup) {
         .attr('class', 'tooltip')
         .offset([80, -60])
         .html(function (d) {
-            //if (chosenXaxis === 'poverty') {
             return (`${d.state},${d.abbr}<br>${label}${d[chosenXaxis]}<br>${chosenYaxis}: ${d[chosenYaxis]}%`);
-            //return (`${d.state},${d.abbr}<br>${chosenXaxis}: ${d[chosenXaxis]}<br>${chosenYaxis}: ${d[chosenYaxis]}%`);
-            // } else if (chosenXaxis === 'age') {
-            //  return (`${d.state},${d.abbr}<br>${chosenXaxis}: ${d[chosenXaxis]}<br>${chosenYaxis}: ${d[chosenYaxis]}%`);
-            // }
-            // else {
-            //    return (`${d.state},${d.abbr}<br>${chosenXaxis}: ${d[chosenXaxis]}<br>${chosenYaxis}: ${d[chosenYaxis]}%`);
-            // }
+
         });
     circlesGroup.call(toolTIP);
     // console.log(call(toolTIP))
@@ -212,12 +201,13 @@ d3.csv('assets/data/data.csv').then(function (data, err) {
         .text('Household Income (Median)');
 
     // append thr 3 yaxis        
-    let Hgroup = chartgroup.append('g');
-        //.attr('transform', 'rotate(-90)');
+    let Hgroup = chartgroup.append('g')
+        .attr('transform', 'rotate(-90)');
 
     let obeseLabel = Hgroup.append('text')
         .attr('y', 0 - margin.left)
-        .attr('transform', `translate(-40,${height / 2})rotate(-90)`)
+        // .attr('transform', `translate(-40,${height / 2})rotate(-90)`)
+        .attr("x", 0 - (height / 2))
         .attr('dy', '1em')
         .classed('axis-text', true)
         .classed("active", true)
@@ -226,7 +216,8 @@ d3.csv('assets/data/data.csv').then(function (data, err) {
 
     let smokesLabel = Hgroup.append('text')
         .attr('y', 0 - margin.left)
-        .attr('transform',`translate(-60,${height / 2})rotate(-90)`)
+        // .attr('transform',`translate(-60,${height / 2})rotate(-90)`)
+        .attr("x", 0 - (height / 2))
         .attr('dy', '1em')
         .classed('axis-text', true)
         .classed("inactive", true)
@@ -235,14 +226,15 @@ d3.csv('assets/data/data.csv').then(function (data, err) {
 
     let healthcareLabel = Hgroup.append('text')
         .attr('y', 0 - margin.left)
-        .attr('transform', `translate(-80,${height / 2})rotate(-90)`)
+        // .attr('transform', `translate(-80,${height / 2})rotate(-90)`)
+        .attr("x", 0 - (height / 2))
         .attr('dy', '1em')
         .classed('axis-text', true)
         .classed("inactive", true)
         .attr('value', 'healthcare')
         .text('Lacks Healthcare (%)');
 
-    
+
     // set event listeners for both x and y axis.
     //x axis:
     LGroup.selectAll('text')
